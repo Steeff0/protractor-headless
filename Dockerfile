@@ -16,6 +16,8 @@ RUN set -x \
         && apt-get install -y xvfb wget sudo openjdk-8-jre \
     # Instal and configure Protractor
         && npm install -g protractor minimist@1.2.0 \
+        && node ./webdriver-versions.js --chromedriver 2.32 \
+        && webdriver-manager update \
     # Install Chrome
         && wget "https://github.com/webnicer/chrome-downloads/raw/master/x64.deb/${CHROME_PACKAGE}" \
         && dpkg --unpack "${CHROME_PACKAGE}" \
@@ -23,13 +25,8 @@ RUN set -x \
     # Clean up
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/* \
-        && rm ${CHROME_PACKAGE}
-
-RUN set -x \
-    # Configuring protractor
-        && node ./webdriver-versions.js --chromedriver 2.32 \
-        && webdriver-manager update \
-    #prepaire user and directories
+        && rm ${CHROME_PACKAGE} \
+    # prepaire user and directories
         && mkdir "/protractor" \
         && addgroup protractor \
         && adduser --home "/etc/protractor" --ingroup protractor --disabled-password protractor
