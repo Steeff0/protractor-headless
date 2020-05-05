@@ -34,8 +34,6 @@ RUN set -x \
         && addgroup protractor \
         && adduser --home "/etc/protractor" --ingroup protractor --disabled-password protractor
 
-COPY "./files/environment" "/etc/sudoers.d/"
-
 USER protractor
 COPY --chown=protractor:protractor "./files/entrypoint.sh" "/entrypoint.sh"
 
