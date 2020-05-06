@@ -31,9 +31,9 @@ RUN set -x \
         && addgroup protractor \
         && adduser --home "/etc/protractor" --ingroup protractor --disabled-password protractor
 
-USER protractor
 COPY --chown=protractor:protractor "./files/entrypoint.sh" "/entrypoint.sh"
 
+USER protractor
 WORKDIR "/protractor"
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]
