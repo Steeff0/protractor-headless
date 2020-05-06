@@ -1,0 +1,15 @@
+dist: trusty
+sudo: required
+language: node_js
+node_js:
+  - '14'
+
+services: docker
+
+before_script:
+  - image="protractor-headless"
+
+script:
+  - >
+    docker image build -t "$image" . &&
+    docker container run -it --privileged --rm --shm-size 2g -v /$(pwd):/protractor protractor-headless protractor ./tests/conf.js
