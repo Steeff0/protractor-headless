@@ -1,6 +1,6 @@
 # Docker image of Protractor with headless Chrome
 
-[![Build Status](https://travis-ci.org/jciolek/docker-protractor-headless.svg?branch=master)](https://travis-ci.org/jciolek/docker-protractor-headless)
+[![Build Status](https://travis-ci.org/Steeff0/Protractor-Headless.svg?branch=master)](https://travis-ci.org/Steeff0/Protractor-Headless)
 
 Based on [webnicer/protractor-headles](https://www.github.com/jciolek/docker-protractor-headless)
 
