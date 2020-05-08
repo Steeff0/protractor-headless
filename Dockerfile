@@ -5,7 +5,7 @@ ENV CHROME_PACKAGE="google-chrome-stable_81.0.4044.92-1_amd64.deb"
 ENV NODE_PATH=/usr/local/lib/node_modules:/protractor/node_modules
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 ENV SCREEN_RES=1280x1024x24
-ENV CHROMEDRIVER_VERSION=2.32
+ENV CHROMEDRIVER_VERSION=81.0.4044.138
 ENV PROTRACTOR_VERSION=5.4.4
 
 COPY "./files/webdriver-versions.js" "./webdriver-versions.js"
