@@ -34,5 +34,3 @@ COPY --chown=protractor:protractor "./files/entrypoint.sh" "/entrypoint.sh"
 
 USER protractor
 WORKDIR "/protractor"
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["bash"]
