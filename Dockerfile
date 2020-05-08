@@ -5,6 +5,8 @@ ENV CHROME_PACKAGE="google-chrome-stable_81.0.4044.92-1_amd64.deb"
 ENV NODE_PATH=/usr/local/lib/node_modules:/protractor/node_modules
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 ENV SCREEN_RES=1280x1024x24
+ENV CHROMEDRIVER_VERSION=81.0.4044.138
+ENV PROTRACTOR_VERSION=5.4.4
 
 COPY "./files/webdriver-versions.js" "./webdriver-versions.js"
 
@@ -15,8 +17,8 @@ RUN set -x \
         && apt-get update \
         && apt-get install -y xvfb wget sudo openjdk-8-jre \
     # Instal and configure Protractor
-        && npm install -g protractor@5.4.4 minimist@1.2.0 \
-        && node ./webdriver-versions.js --chromedriver 2.32 \
+        && npm install -g protractor@${PROTRACTOR_VERSION} minimist@1.2.5 \
+        && node ./webdriver-versions.js --chromedriver ${CHROMEDRIVER_VERSION} \
         && webdriver-manager update \
     # Install Chrome
         && wget "https://github.com/webnicer/chrome-downloads/raw/master/x64.deb/${CHROME_PACKAGE}" \
