@@ -17,7 +17,7 @@ RUN set -x \
         && apt-get update \
         && apt-get install -y xvfb wget sudo openjdk-8-jre \
     # Instal and configure Protractor
-        && npm install -g protractor@${PROTRACTOR_VERSION} minimist@1.2.0 \
+        && npm install -g protractor@${PROTRACTOR_VERSION} minimist@1.2.5 \
         && node ./webdriver-versions.js --chromedriver ${CHROMEDRIVER_VERSION} \
         && webdriver-manager update \
     # Install Chrome
