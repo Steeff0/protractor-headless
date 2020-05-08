@@ -81,7 +81,7 @@ This options is required **only** if the dockerised Protractor is run against lo
 The tests are run on Travis and include the following:
 
 * image build
-* run of protractor-headless against angular.js v1.6.1
+* run of the default protractor tutorial tests
 
 
 run with:
