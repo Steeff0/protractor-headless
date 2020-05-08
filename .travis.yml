@@ -11,4 +11,4 @@ before_script:
 script:
   - >
     docker image build -t "$image" . &&
-    docker container run -it --privileged --rm --shm-size 2g -v /$(pwd):/protractor protractor-headless whoami
+    docker container run -it --privileged --rm --shm-size 2g -v /$(pwd):/protractor protractor-headless protractor ./tests/conf.js
