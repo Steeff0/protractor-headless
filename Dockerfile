@@ -28,8 +28,7 @@ RUN set -x \
         && rm ${CHROME_PACKAGE} \
     # prepaire user and directories
         && mkdir "/protractor" \
-        && addgroup protractor \
-        && adduser --home "/etc/protractor" --ingroup protractor --disabled-password protractor
+        && useradd -Ums /bin/bash protractor
 
 COPY --chown=protractor:protractor "./files/entrypoint.sh" "/entrypoint.sh"
 
