@@ -1,6 +1,6 @@
 # Docker image of Protractor with headless Chrome
 
-![GitHub Build Status](https://img.shields.io/github/workflow/status/Steeff0/Protractor-Headless/docker-image-test?style=flat-square)
+![GitHub Build Status](https://img.shields.io/github/workflow/status/Steeff0/protractor-headless/docker-image-test?style=flat-square)
 
 Based on [webnicer/protractor-headles](https://www.github.com/jciolek/docker-protractor-headless)
 
