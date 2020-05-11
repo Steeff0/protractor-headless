@@ -1,0 +1,16 @@
+name: Docker Image CI
+
+on: [ push, pull_request ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker image build . --file Dockerfile --tag Protractor-Headless
+    - name: Run the Docker image
+      run: docker container run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-headless protractor ./tests/conf.js
