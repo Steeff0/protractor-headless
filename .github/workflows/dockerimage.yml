@@ -11,6 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker image build . --file Dockerfile --tag Protractor-Headless
+      run: docker image build . --file Dockerfile --tag protractor-headless
     - name: Run the Docker image
       run: docker container run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-headless protractor ./tests/conf.js
