@@ -13,4 +13,4 @@ jobs:
     - name: Build the Docker image
       run: docker image build . --file Dockerfile --tag protractor-headless
     - name: Run the Docker image
-      run: docker container run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-headless protractor ./tests/conf.js
+      shell: docker container run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-headless protractor ./tests/conf.js
