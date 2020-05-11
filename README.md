@@ -1,7 +1,7 @@
 # Docker image of Protractor with headless Chrome
 
-![GitHub Build Status](https://img.shields.io/github/workflow/status/Steeff0/Protractor-Headless/docker-image-test?style=flat-square)
-![GitHub](https://img.shields.io/github/license/Steeff0/Protractor-Headless?style=flat-square)
+![GitHub Build Status](https://img.shields.io/github/workflow/status/Steeff0/protractor-headless/docker-image-test?style=flat-square)
+![GitHub](https://img.shields.io/github/license/Steeff0/protractor-headless?style=flat-square)
 ![Docker Image Version (latest semver)](https://img.shields.io/docker/v/Steeff0/protractor-headless?style=flat-square)
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/Steeff0/protractor-headless?style=flat-square)
