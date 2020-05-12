@@ -2,11 +2,11 @@
 
 ![GitHub Build Status](https://img.shields.io/github/workflow/status/Steeff0/protractor-headless/docker-image-test?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/Steeff0/protractor-headless?style=flat-square)
-![Docker Image Version (latest semver)](https://img.shields.io/docker/v/Steeff0/protractor-headless?style=flat-square)
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/stevengerritsen/protractor-headless?style=flat-square)
 
-![Docker Pulls](https://img.shields.io/docker/pulls/Steeff0/protractor-headless?style=flat-square)
-![Docker Stars](https://img.shields.io/docker/stars/Steeff0/protractor-headless?style=flat-square)
-![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/Steeff0/protractor-headless?style=flat-square)
+![Docker Pulls](https://img.shields.io/docker/pulls/stevengerritsen/protractor-headless?style=flat-square)
+![Docker Stars](https://img.shields.io/docker/stars/stevengerritsen/protractor-headless?style=flat-square)
+![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/stevengerritsen/protractor-headless?style=flat-square)
 
 Based on [webnicer/protractor-headles](https://www.github.com/jciolek/docker-protractor-headless)
 
