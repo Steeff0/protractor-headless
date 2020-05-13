@@ -12,6 +12,9 @@ Based on [webnicer/protractor-headles](https://www.github.com/jciolek/docker-pro
 
 Protractor end to end testing - dockerised with headless real Chrome. This image is meant as a drop-in replacement for Protractor, so you can use it virtually in the same way you would use Protractor installed directly on your machine.
 
+# Supported tags and respective Dockerfile links
+* [v1.0.0, v1.0, v1, latest](https://github.com/Steeff0/protractor-headless/blob/v1.0.0/Dockerfile)
+
 ## Why headless Chrome?
 
 PhantomJS is [discouraged by Protractor creators](https://angular.github.io/protractor/#/browser-setup#setting-up-phantomjs) and for a good reason. It's basically a bag of problems.
