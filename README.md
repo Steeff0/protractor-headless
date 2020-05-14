@@ -79,7 +79,13 @@ The tests are run with GitHub workflow and include the following:
 It is run with:
 ```bash
 docker image build . --file Dockerfile --tag protractor-headless
-docker container run -it --privileged --rm --shm-size 2g -v /$(pwd):/protractor protractor-headless protractor ./tests/conf.js
+docker container run -t --privileged --rm --shm-size 2g -v $(pwd)/protractor-project:/protractor protractor-headless protractor ./conf.js
 ```
 
 If you want to test it yourself, you can check out this project, build the image and run it with the above mentioned commands.
+
+For Docker Desktop for windows (and have something like gitbash) use:
+```bash
+docker image build . --file Dockerfile --tag protractor-headless
+winpty docker container run -t --privileged --rm --shm-size 2g -v /$(pwd -W)/protractor-project:/protractor protractor-headless protractor ./conf.js
+```

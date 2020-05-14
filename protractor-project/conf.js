@@ -1,6 +1,6 @@
 exports.config = {
     framework: 'jasmine',
-    specs: ['simple.specs.js'],
+    specs: ['specs/*.specs.js'],
     multiCapabilities: [{
         browserName: 'chrome'
     }]

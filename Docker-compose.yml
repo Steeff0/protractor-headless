@@ -1,11 +1,13 @@
 version: '3.5'
 
 services:
-  protractor:
+  protractor-headless:
       image: "protractor-headless"
       build:
         context: "."
         dockerfile: ./Dockerfile
         shm_size: '2gb'
       volumes:
-        - ".:/protractor"
+        - "./protractor-project:/protractor"
+      privileged: true
+      shm_size: '2gb'
