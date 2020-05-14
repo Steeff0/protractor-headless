@@ -87,5 +87,5 @@ If you want to test it yourself, you can check out this project, build the image
 For Docker Desktop for windows (and have something like gitbash) use:
 ```bash
 docker image build . --file Dockerfile --tag protractor-headless
-winpty docker container run -it --privileged --rm --shm-size 2g -v /$(pwd -W)/protractor-project:/protractor protractor-headless protractor ./conf.js
+winpty docker container run -t --privileged --rm --shm-size 2g -v /$(pwd -W)/protractor-project:/protractor protractor-headless protractor ./conf.js
 ```
