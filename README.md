@@ -1,6 +1,6 @@
 # Docker image of Protractor with headless Chrome
 
-[![GitHub Build Status](https://img.shields.io/github/workflow/status/Steeff0/protractor-headless/docker-image-test?style=flat-square)](https://github.com/Steeff0/protractor-headless/actions?query=workflow%3Adocker-image-test)
+[![GitHub Build Status](https://img.shields.io/github/workflow/status/Steeff0/protractor-headless/docker-image-test/master?style=flat-square)](https://github.com/Steeff0/protractor-headless/actions?query=workflow%3Adocker-image-test)
 [![GitHub](https://img.shields.io/github/license/Steeff0/protractor-headless?style=flat-square)](https://github.com/Steeff0/protractor-headless/blob/master/LICENSE)
 [![Docker Image Version (latest semver)](https://img.shields.io/docker/v/stevengerritsen/protractor-headless?style=flat-square)](https://hub.docker.com/r/stevengerritsen/protractor-headless)
 
@@ -38,11 +38,18 @@ The packages are pinned to those versions so that they should work together with
 
 The command below, will run protractor in your current directory.
 
-```
-docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-headless protractor [protractor options]
+```bash
+docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless protractor [protractor options]
 ```
 
 The image adds `/protractor/node_modules` directory to its `NODE_PATH` environmental variable, so that it can use Jasmine, Mocha or whatever else the project uses from the project's own node modules. Therefore, Mocha and Jasmine aren't included in the image.
+
+## npm install
+If you want the image to also do a npm install (for example if you want to run it in a build server), then you can pass the environment variable `NPM_INSTALL=true` to `docker run`. Your code will then look something like this:
+
+```bash
+docker run -it --privileged -e NPM_INSTALL=true --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless protractor [protractor options]
+```
 
 ## Why `--privileged`?
 
@@ -55,8 +62,9 @@ The [`--privileged`](https://docs.docker.com/engine/reference/run/#runtime-privi
 ## Setting up custom screen resolution
 
 The default screen resolution is **1280x1024** with **24-bit color**. You can set a custom screen resolution and color depth via the **SCREEN_RES** env variable, like this:
-```
-docker run -it --privileged --rm --shm-size 2g -e SCREEN_RES=1920x1080x24 -v $(pwd):/protractor protractor-headless protractor [protractor options]
+
+```bash
+docker run -it --privileged --rm --shm-size 2g -e SCREEN_RES=1920x1080x24 -v $(pwd):/protractor stevengerritsen/protractor-headless protractor [protractor options]
 ```
 
 ## Test localhost
@@ -67,25 +75,29 @@ In order to test on sites running on localhost you have to add the option `--net
 
 If you want to run protractor inside the container before closing it again, you give the commands `protractor [protractor options]`, but run other commands in this container by just change the commands to the thing you want to run. If you want for example run bash inside the container you can use the following command:
 
-```docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-headless bash
+```bash
+docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless bash
 ```
 
 # Tests
 The tests are run with GitHub workflow and include the following:
 
-* image build
-* run of the default protractor tutorial tests (included in this project)
+* Image build
+* Run the image with the environment variable NPM_INSTALL to run an NPM install
+* Run of the default protractor tutorial tests (included in this project)
 
 It is run with:
+
 ```bash
 docker image build . --file Dockerfile --tag protractor-headless
-docker container run -t --privileged --rm --shm-size 2g -v $(pwd)/protractor-project:/protractor protractor-headless protractor ./conf.js
+docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -v $(pwd)/protractor-project:/protractor stevengerritsen/protractor-headless protractor ./conf.js
 ```
 
 If you want to test it yourself, you can check out this project, build the image and run it with the above mentioned commands.
 
 For Docker Desktop for windows (and have something like gitbash) use:
+
 ```bash
 docker image build . --file Dockerfile --tag protractor-headless
-winpty docker container run -t --privileged --rm --shm-size 2g -v /$(pwd -W)/protractor-project:/protractor protractor-headless protractor ./conf.js
+winpty docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -v /$(pwd -W)/protractor-project:/protractor stevengerritsen/protractor-headless protractor ./conf.js
 ```
