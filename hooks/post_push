@@ -8,7 +8,7 @@ majorTag=${tag%%.*}
 minorTag=${tag%.*}
 
 # Tag and push image for each additional tag
-for tag in {${minorTag}, ${majorTag}, latest}; do
+for newTag in {"${minorTag}","${majorTag}","latest"}; do
     docker tag $IMAGE_NAME ${repoName}:${tag}
     docker push ${repoName}:${tag}
 done
