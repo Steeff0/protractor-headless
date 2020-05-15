@@ -39,7 +39,7 @@ The packages are pinned to those versions so that they should work together with
 The command below, will run protractor in your current directory.
 
 ```bash
-docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-headless protractor [protractor options]
+docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless protractor [protractor options]
 ```
 
 The image adds `/protractor/node_modules` directory to its `NODE_PATH` environmental variable, so that it can use Jasmine, Mocha or whatever else the project uses from the project's own node modules. Therefore, Mocha and Jasmine aren't included in the image.
@@ -48,7 +48,7 @@ The image adds `/protractor/node_modules` directory to its `NODE_PATH` environme
 If you want the image to also do a npm install (for example if you want to run it in a build server), then you can pass the environment variable `NPM_INSTALL=true` to `docker run`. Your code will then look something like this:
 
 ```bash
-docker run -it --privileged -e NPM_INSTALL=true --rm --shm-size 2g -v $(pwd):/protractor protractor-headless protractor [protractor options]
+docker run -it --privileged -e NPM_INSTALL=true --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless protractor [protractor options]
 ```
 
 ## Why `--privileged`?
@@ -64,7 +64,7 @@ The [`--privileged`](https://docs.docker.com/engine/reference/run/#runtime-privi
 The default screen resolution is **1280x1024** with **24-bit color**. You can set a custom screen resolution and color depth via the **SCREEN_RES** env variable, like this:
 
 ```bash
-docker run -it --privileged --rm --shm-size 2g -e SCREEN_RES=1920x1080x24 -v $(pwd):/protractor protractor-headless protractor [protractor options]
+docker run -it --privileged --rm --shm-size 2g -e SCREEN_RES=1920x1080x24 -v $(pwd):/protractor stevengerritsen/protractor-headless protractor [protractor options]
 ```
 
 ## Test localhost
@@ -76,7 +76,7 @@ In order to test on sites running on localhost you have to add the option `--net
 If you want to run protractor inside the container before closing it again, you give the commands `protractor [protractor options]`, but run other commands in this container by just change the commands to the thing you want to run. If you want for example run bash inside the container you can use the following command:
 
 ```bash
-docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-headless bash
+docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless bash
 ```
 
 # Tests
@@ -90,7 +90,7 @@ It is run with:
 
 ```bash
 docker image build . --file Dockerfile --tag protractor-headless
-docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -v $(pwd)/protractor-project:/protractor protractor-headless protractor ./conf.js
+docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -v $(pwd)/protractor-project:/protractor stevengerritsen/protractor-headless protractor ./conf.js
 ```
 
 If you want to test it yourself, you can check out this project, build the image and run it with the above mentioned commands.
@@ -99,5 +99,5 @@ For Docker Desktop for windows (and have something like gitbash) use:
 
 ```bash
 docker image build . --file Dockerfile --tag protractor-headless
-winpty docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -v /$(pwd -W)/protractor-project:/protractor protractor-headless protractor ./conf.js
+winpty docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -v /$(pwd -W)/protractor-project:/protractor stevengerritsen/protractor-headless protractor ./conf.js
 ```
