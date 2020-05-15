@@ -44,6 +44,14 @@ docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor protractor-
 
 The image adds `/protractor/node_modules` directory to its `NODE_PATH` environmental variable, so that it can use Jasmine, Mocha or whatever else the project uses from the project's own node modules. Therefore, Mocha and Jasmine aren't included in the image.
 
+## npm install
+If you want the image to also do an npm install (for example if you want to run it in a build server), then you can pass the environment variable `NPMINSTALL=true` to `docker run`. Your code will then look something like this:
+
+
+```
+docker run -it --privileged -e NPMINSTALL=true --rm --shm-size 2g -v $(pwd):/protractor protractor-headless protractor [protractor options]
+```
+
 ## Why `--privileged`?
 
 Chrome uses sandboxing, therefore if you try and run Chrome within a non-privileged container you will receive the following message:
@@ -79,7 +87,7 @@ The tests are run with GitHub workflow and include the following:
 It is run with:
 ```bash
 docker image build . --file Dockerfile --tag protractor-headless
-docker container run -t --privileged --rm --shm-size 2g -v $(pwd)/protractor-project:/protractor protractor-headless protractor ./conf.js
+docker container run -t --privileged -e NPMINSTALL=true --rm --shm-size 2g -v $(pwd)/protractor-project:/protractor protractor-headless protractor ./conf.js
 ```
 
 If you want to test it yourself, you can check out this project, build the image and run it with the above mentioned commands.
@@ -87,5 +95,5 @@ If you want to test it yourself, you can check out this project, build the image
 For Docker Desktop for windows (and have something like gitbash) use:
 ```bash
 docker image build . --file Dockerfile --tag protractor-headless
-winpty docker container run -t --privileged --rm --shm-size 2g -v /$(pwd -W)/protractor-project:/protractor protractor-headless protractor ./conf.js
+winpty docker container run -t --privileged -e NPMINSTALL=true --rm --shm-size 2g -v /$(pwd -W)/protractor-project:/protractor protractor-headless protractor ./conf.js
 ```
