@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Steven Gerritsen",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "jasmine-reporters": "^2.3.2",
+    "jasmine-spec-reporter": "^5.0.2"
+  }
 }

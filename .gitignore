@@ -1,2 +1,4 @@
-.idea
-/protractor-project/node-modules
+/.idea
+/protractor-project/node_modules/
+/protractor-project/reports/*
+!/protractor-project/reports/.gitkeep
