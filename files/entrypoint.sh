@@ -16,6 +16,9 @@ then
     echo ""
     echo "Running 'npm install'"
     npm install
+  else
+    echo ""
+    echo "No npm install needed"
   fi
 
   echo "Executing command: xvfb-run --server-args=\"-screen 0 ${SCREEN_RES}\" -a protractor $*"
