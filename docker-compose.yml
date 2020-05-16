@@ -10,4 +10,4 @@ services:
       image: "protractor-headless:firefox"
       build:
         context: "."
-        dockerfile: dockerfiles/firefox/Dockerfiles
+        dockerfile: dockerfiles/firefox/Dockerfile
