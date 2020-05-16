@@ -10,7 +10,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker image build . --file Dockerfile --tag protractor-headless
-    - name: Run the Docker image
-      run: docker container run -t --privileged -e NPM_INSTALL=true --rm --shm-size 2g -v $(pwd)/protractor-project:/protractor protractor-headless protractor ./conf.js
+    - name: Build the Docker images
+      run: docker-compose build
+    - name: Run the Docker image - chrome
+      run: docker container run -t --privileged -e NPM_INSTALL=true --rm --shm-size 2g -v $(pwd)/protractor-project:/protractor protractor-headless:chrome protractor ./conf.js
+    - name: Run the Docker image - firefox
+      run: docker container run -t --privileged -e NPM_INSTALL=true --rm --shm-size 2g -v $(pwd)/protractor-project:/protractor protractor-headless:firefox protractor ./conf.js

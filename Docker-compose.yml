@@ -1,13 +1,13 @@
 version: '3.5'
 
 services:
-  protractor-headless:
-      image: "protractor-headless"
+  protractor-headless-chrome:
+      image: "protractor-headless:chrome"
       build:
         context: "."
-        dockerfile: ./Dockerfile
-        shm_size: '2gb'
-      volumes:
-        - "./protractor-project:/protractor"
-      privileged: true
-      shm_size: '2gb'
+        dockerfile: dockerfiles/chrome/Dockerfile
+  protractor-headless-firefox:
+      image: "protractor-headless:firefox"
+      build:
+        context: "."
+        dockerfile: dockerfiles/firefox/Dockerfiles
