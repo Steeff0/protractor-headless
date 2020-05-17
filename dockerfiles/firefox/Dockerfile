@@ -25,17 +25,14 @@ RUN set -x \
 COPY --chown=protractor:protractor "./files/entrypoint.sh" "/entrypoint.sh"
 
 ## BROWSER SPECIFIC PART
-ENV FIREFOX_PACKAGE="firefox_76.0.1-1_amd64.deb"
+ENV FIREFOX_VERSION=76
 ENV GECKODRIVER_VERSION=v0.26.0
 ENV SELENIUM_BROWSER='firefox'
 
 RUN set -x \
     # Install Firefox
-        && wget "http://ftp.br.debian.org/debian/pool/main/f/firefox/${FIREFOX_PACKAGE}" \
-        && dpkg --unpack "${FIREFOX_PACKAGE}" \
         && apt-get update \
-        && apt-get install -fy \
-        && rm ${FIREFOX_PACKAGE} \
+        && apt-get install firefox=${FIREFOX_VERSION}\* -y \
     # Configure webdriver
         && node ./webdriver-versions.js --geckodriver ${GECKODRIVER_VERSION} \
         && webdriver-manager update \
