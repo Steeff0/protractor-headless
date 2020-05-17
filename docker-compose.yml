@@ -11,3 +11,8 @@ services:
       build:
         context: "."
         dockerfile: dockerfiles/firefox/Dockerfile
+  protractor-headless-all-browsers:
+      image: "protractor-headless:all"
+      build:
+        context: "."
+        dockerfile: dockerfiles/all-browsers/Dockerfile
