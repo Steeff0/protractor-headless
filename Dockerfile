@@ -13,7 +13,7 @@ RUN set -x \
         && echo "deb http://ftp.us.debian.org/debian sid main" >> /etc/apt/sources.list \
         && mkdir -p "/usr/share/man/man1" \
         && apt-get update \
-        && apt-get install -y xvfb wget sudo openjdk-8-jre \
+        && apt-get install -y xvfb wget openjdk-8-jre gnupg2 \
         && npm install -g protractor@${PROTRACTOR_VERSION} minimist@1.2.5 \
     # prepaire user and directories
         && mkdir "/protractor" \
@@ -25,16 +25,23 @@ RUN set -x \
 COPY --chown=protractor:protractor "./files/entrypoint.sh" "/entrypoint.sh"
 
 ## BROWSER SPECIFIC PART
-ENV FIREFOX_VERSION=76
-ENV GECKODRIVER_VERSION=v0.26.0
-ENV SELENIUM_BROWSER='firefox'
+ARG BROWSER_PACKAGE='google-chrome-stable'
+ENV BROWSER_PACKAGE=${BROWSER_PACKAGE}
+ARG BROWSER_VERSION='83'
+ENV BROWSER_VERSION=${BROWSER_VERSION}
+ARG WEBDRIVER_PACKAGE='chromedriver'
+ENV WEBDRIVER_PACKAGE=${WEBDRIVER_PACKAGE}
+ARG WEBDRIVER_VERSION='83.0.4103.39'
+ENV WEBDRIVER_VERSION=${WEBDRIVER_VERSION}
 
 RUN set -x \
-    # Install Firefox
+    # Updating and installing packages
+        && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list \
+        && wget -q -O - 'https://dl-ssl.google.com/linux/linux_signing_key.pub' | apt-key add - \
         && apt-get update \
-        && apt-get install firefox=${FIREFOX_VERSION}\* -y \
+        && apt-get install --no-install-recommends -y ${BROWSER_PACKAGE}=${BROWSER_VERSION}\* \
     # Configure webdriver
-        && node ./webdriver-versions.js --geckodriver ${GECKODRIVER_VERSION} \
+        && node ./webdriver-versions.js --${WEBDRIVER_PACKAGE} ${WEBDRIVER_VERSION} \
         && webdriver-manager update \
     # Clean up
         && apt-get clean \

@@ -5,14 +5,40 @@ services:
       image: "protractor-headless:chrome"
       build:
         context: "."
-        dockerfile: dockerfiles/chrome/Dockerfile
+        dockerfile: Dockerfile
+        args:
+          - BROWSER_PACKAGE=google-chrome-stable
+          - BROWSER_VERSION=83
+          - WEBDRIVER_PACKAGE=chromedriver
+          - WEBDRIVER_VERSION=83
+      environment:
+        - SELENIUM_BROWSER=chrome
+        - NPM_INSTALL=true
+      privileged: true
+      shm_size: 2g
+      volumes:
+      - ./protractor-project:/protractor
+      command:
+        - protractor
+        - ./conf.js
+
   protractor-headless-firefox:
       image: "protractor-headless:firefox"
       build:
         context: "."
-        dockerfile: dockerfiles/firefox/Dockerfile
-  protractor-headless-all-browsers:
-      image: "protractor-headless:all"
-      build:
-        context: "."
-        dockerfile: dockerfiles/all-browsers/Dockerfile
+        dockerfile: Dockerfile
+        args:
+          - BROWSER_PACKAGE=firefox
+          - BROWSER_VERSION=76
+          - WEBDRIVER_PACKAGE=geckodriver
+          - WEBDRIVER_VERSION=v0.26.0
+      environment:
+        - SELENIUM_BROWSER=firefox
+        - NPM_INSTALL=true
+      privileged: true
+      shm_size: 2g
+      volumes:
+        - ./protractor-project:/protractor
+      command:
+        - protractor
+        - ./conf.js
