@@ -5,7 +5,7 @@ docker container run \
   --shm-size 2g \
   -e NPM_INSTALL=true \
   -e SELENIUM_BROWSER=chrome \
-  -v $(pwd)/protractor-project:/protractor \
+  -v $(pwd)/protractor-project:/protractor:ro \
   $DOCKER_REPO:chrome \
   protractor ./conf.js
 
@@ -14,6 +14,6 @@ docker container run \
   --shm-size 2g \
   -e NPM_INSTALL=true \
   -e SELENIUM_BROWSER=firefox \
-  -v $(pwd)/protractor-project:/protractor \
+  -v $(pwd)/protractor-project:/protractor:ro \
   $DOCKER_REPO:firefox \
   protractor ./conf.js
