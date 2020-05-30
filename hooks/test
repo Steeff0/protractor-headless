@@ -6,7 +6,7 @@ docker container run \
   -e NPM_INSTALL=true \
   -e SELENIUM_BROWSER=chrome \
   -v $(pwd)/protractor-project:/protractor \
-  $IMAGE_NAME:chrome \
+  $DOCKER_REPO:chrome \
   protractor ./conf.js
 
 docker container run \
@@ -15,5 +15,5 @@ docker container run \
   -e NPM_INSTALL=true \
   -e SELENIUM_BROWSER=firefox \
   -v $(pwd)/protractor-project:/protractor \
-  $IMAGE_NAME:firefox \
+  $DOCKER_REPO:firefox \
   protractor ./conf.js
