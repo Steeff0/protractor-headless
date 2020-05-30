@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docker container run \
-  -t --privileged --rm \
+  --privileged --rm \
   --shm-size 2g \
   -e NPM_INSTALL=true \
   -e SELENIUM_BROWSER=chrome \
@@ -10,7 +10,7 @@ docker container run \
   protractor ./conf.js
 
 docker container run \
-  -t --privileged --rm \
+  --privileged --rm \
   --shm-size 2g \
   -e NPM_INSTALL=true \
   -e SELENIUM_BROWSER=firefox \

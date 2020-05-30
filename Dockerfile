@@ -15,8 +15,7 @@ RUN set -x \
         && apt-get update \
         && apt-get install -y xvfb wget openjdk-8-jre gnupg2 \
         && npm install -g protractor@${PROTRACTOR_VERSION} minimist@1.2.5 \
-    # prepaire user and directories
-        && mkdir "/protractor" \
+    # prepaire user
         && useradd -Ums /bin/bash protractor \
     # Clean up
         && apt-get clean \
@@ -43,6 +42,9 @@ RUN set -x \
     # Configure webdriver
         && node ./webdriver-versions.js --${WEBDRIVER_PACKAGE} ${WEBDRIVER_VERSION} \
         && webdriver-manager update \
+    # Make base dir
+        && mkdir "/protractor" \
+        && chown -R protractor:protractor /protractor \
     # Clean up
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
