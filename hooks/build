@@ -1,0 +1,15 @@
+#!/bin/bash
+
+docker image build \
+  --build-arg BROWSER_PACKAGE=google-chrome-stable \
+  --build-arg BROWSER_VERSION=83 \
+  --build-arg WEBDRIVER_PACKAGE=chromedriver \
+  --build-arg WEBDRIVER_VERSION=83 \
+  -f $DOCKERFILE_PATH -t ${IMAGE_NAME}:chrome .
+
+docker image build \
+  --build-arg BROWSER_PACKAGE=firefox \
+  --build-arg BROWSER_VERSION=76 \
+  --build-arg WEBDRIVER_PACKAGE=geckodriver \
+  --build-arg WEBDRIVER_VERSION=v0.26.0 \
+  -f $DOCKERFILE_PATH -t ${MAGE_NAME}:firefox .

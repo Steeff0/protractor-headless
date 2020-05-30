@@ -2,7 +2,7 @@ exports.config = {
     framework: 'jasmine',
     specs: ['specs/*.specs.js'],
     multiCapabilities: [{
-        browserName: 'chrome'
+        browserName: process.env.SELENIUM_BROWSER
     }],
     onPrepare: function () {
         //Getting CLI report

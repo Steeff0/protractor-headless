@@ -13,13 +13,15 @@ Based on [webnicer/protractor-headles](https://www.github.com/jciolek/docker-pro
 Protractor end to end testing - dockerised with headless real Chrome. This image is meant as a drop-in replacement for Protractor, so you can use it virtually in the same way you would use Protractor installed directly on your machine.
 
 # Supported tags and respective Dockerfile links
-* [v1.0.0, v1.0, v1, latest](https://github.com/Steeff0/protractor-headless/blob/v1.0.0/Dockerfile)
+* [v2.0.0-chrome, v2.0-chrome, v2-chrome, chrome](https://github.com/Steeff0/protractor-headless/blob/v2.0.0/Dockerfile) (chrome browser)
+* [v2.0.0-firefox, v2.0-firefox, v2-firefox, firefox](https://github.com/Steeff0/protractor-headless/blob/v2.0.0/Dockerfile) (firefox browser)
+* [v1.0.0, v1.0, v1](https://github.com/Steeff0/protractor-headless/blob/v1.0.0/Dockerfile) (chrome image)
 
-## Why headless Chrome?
+## Why headless?
 
 PhantomJS is [discouraged by Protractor creators](https://angular.github.io/protractor/#/browser-setup#setting-up-phantomjs) and for a good reason. It's basically a bag of problems.
 
-## What is headless Chrome anyway?
+## What is headless anyway?
 
 To be perfectly honest - it is a [real chrome running on xvfb](http://tobyho.com/2015/01/09/headless-browser-testing-xvfb/). Therefore you have every confidence that the tests are run on the real thing.
 
@@ -27,19 +29,23 @@ To be perfectly honest - it is a [real chrome running on xvfb](http://tobyho.com
 
 The image in the latest version contains the following packages in their respective versions:
 
-* Chrome - 81.0.4044
-* Protractor - 5.4.4
 * Node.js - 14
-* Chromedriver - 81.0.4044
+* Protractor - 5.4.4
 
-The packages are pinned to those versions so that they should work together without issues.
+### Chrome
+* Chrome - 83
+* Chromedriver - 83
+
+### Firefox
+* Firefox - 76
+* geckodriver - v0.26.0
 
 # Usage
 
 The command below, will run protractor in your current directory.
 
 ```bash
-docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless protractor [protractor options]
+docker run -it --privileged --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless:[chrome|firefox] protractor [protractor options]
 ```
 
 The image adds `/protractor/node_modules` directory to its `NODE_PATH` environmental variable, so that it can use Jasmine, Mocha or whatever else the project uses from the project's own node modules. Therefore, Mocha and Jasmine aren't included in the image.
@@ -48,7 +54,7 @@ The image adds `/protractor/node_modules` directory to its `NODE_PATH` environme
 If you want the image to also do a npm install (for example if you want to run it in a build server), then you can pass the environment variable `NPM_INSTALL=true` to `docker run`. Your code will then look something like this:
 
 ```bash
-docker run -it --privileged -e NPM_INSTALL=true --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless protractor [protractor options]
+docker run -it --privileged -e NPM_INSTALL=true --rm --shm-size 2g -v $(pwd):/protractor stevengerritsen/protractor-headless:[chrome|firefox] protractor [protractor options]
 ```
 
 ## Why `--privileged`?
@@ -89,15 +95,35 @@ The tests are run with GitHub workflow and include the following:
 It is run with:
 
 ```bash
-docker image build . --file Dockerfile --tag protractor-headless
-docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -v $(pwd)/protractor-project:/protractor stevengerritsen/protractor-headless protractor ./conf.js
+docker-compose build protractor-headless-chrome
+docker-compose up protractor-headless-chrome
 ```
 
-If you want to test it yourself, you can check out this project, build the image and run it with the above mentioned commands.
+```bash
+docker-compose build protractor-headless-firefox
+docker-compose up protractor-headless-firefox
+```
 
-For Docker Desktop for windows (and have something like gitbash) use:
+If you want to test it yourself, you can check out this project, build the image and run it with the following commands:
 
 ```bash
-docker image build . --file Dockerfile --tag protractor-headless
-winpty docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -v /$(pwd -W)/protractor-project:/protractor stevengerritsen/protractor-headless protractor ./conf.js
+docker image build --build-arg BROWSER_PACKAGE=google-chrome-stable --build-arg BROWSER_VERSION=83 --build-arg WEBDRIVER_PACKAGE=chromedriver --build-arg WEBDRIVER_VERSION=83 -f $DOCKERFILE_PATH -t ${IMAGE_NAME}:chrome .
+docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -e SELENIUM_BROWSER=chrome -v $(pwd)/protractor-project:/protractor protractor-headless-chrome protractor ./conf.js
+```
+
+```bash
+docker image build --build-arg BROWSER_PACKAGE=firefox --build-arg BROWSER_VERSION=76 --build-arg WEBDRIVER_PACKAGE=geckodriver --build-arg WEBDRIVER_VERSION=v0.26.0 -f $DOCKERFILE_PATH -t ${IMAGE_NAME}:firefox .
+docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -e SELENIUM_BROWSER=firefox -v $(pwd)/protractor-project:/protractor protractor-headless-firefox protractor ./conf.js
+```
+
+For Docker Desktop for windows use:
+
+```bash
+docker image build --build-arg BROWSER_PACKAGE=google-chrome-stable --build-arg BROWSER_VERSION=83 --build-arg WEBDRIVER_PACKAGE=chromedriver --build-arg WEBDRIVER_VERSION=83 -f $DOCKERFILE_PATH -t ${IMAGE_NAME}:chrome .
+winpty docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -e SELENIUM_BROWSER=chrome -v /$(pwd -W)/protractor-project:/protractor protractor-headless-chrome protractor ./conf.js
+```
+
+```bash
+docker image build --build-arg BROWSER_PACKAGE=firefox --build-arg BROWSER_VERSION=76 --build-arg WEBDRIVER_PACKAGE=geckodriver --build-arg WEBDRIVER_VERSION=v0.26.0 -f $DOCKERFILE_PATH -t ${IMAGE_NAME}:firefox .
+winpty docker container run -t --privileged --rm --shm-size 2g -e NPM_INSTALL=true -e SELENIUM_BROWSER=firefox -v /$(pwd -W)/protractor-project:/protractor protractor-headless-firefox protractor ./conf.js
 ```
