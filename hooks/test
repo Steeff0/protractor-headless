@@ -1,0 +1,19 @@
+#!/bin/bash
+
+docker container run \
+  -t --privileged --rm \
+  --shm-size 2g \
+  -e NPM_INSTALL=true \
+  -e SELENIUM_BROWSER=chrome \
+  -v $(pwd)/protractor-project:/protractor \
+  $IMAGE_NAME:chrome \
+  protractor ./conf.js
+
+docker container run \
+  -t --privileged --rm \
+  --shm-size 2g \
+  -e NPM_INSTALL=true \
+  -e SELENIUM_BROWSER=firefox \
+  -v $(pwd)/protractor-project:/protractor \
+  $IMAGE_NAME:firefox \
+  protractor ./conf.js

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+MAJORTAG=${DOCKER_TAG%%.*}
+MINORTAG=${DOCKER_TAG%.*}
+
+docker push ${IMAGE_NAME}:chrome
+docker push ${IMAGE_NAME}:firefox
+
+for newTag in {"${MAJORTAG}","${MINORTAG}","${DOCKER_TAG}"};
+
+    # CHROME
+    echo "run: docker image tag ${IMAGE_NAME}-chrome ${IMAGE_NAME}:${newTag}-chrome"
+    docker image tag ${IMAGE_NAME}-chrome ${IMAGE_NAME}:${newTag}-chrome
+
+    echo "run: docker image push ${IMAGE_NAME}:${newTag}-chrome"
+    docker image push ${IMAGE_NAME}:${newTag}-chrome
+
+    # CHROME
+    echo "run: docker image tag ${IMAGE_NAME}-firefox ${IMAGE_NAME}:${newTag}-firefox"
+    docker image tag ${IMAGE_NAME}-firefox ${IMAGE_NAME}:${newTag}-firefox
+
+    echo "run: docker image push ${IMAGE_NAME}:${newTag}-firefox"
+    docker image push ${IMAGE_NAME}:${newTag}-firefox
+done
