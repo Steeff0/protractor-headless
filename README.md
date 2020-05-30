@@ -2,7 +2,7 @@
 
 [![GitHub Build Status](https://img.shields.io/github/workflow/status/Steeff0/protractor-headless/docker-image-test/master?style=flat-square)](https://github.com/Steeff0/protractor-headless/actions?query=workflow%3Adocker-image-test)
 [![GitHub](https://img.shields.io/github/license/Steeff0/protractor-headless?style=flat-square)](https://github.com/Steeff0/protractor-headless/blob/master/LICENSE)
-[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/stevengerritsen/protractor-headless?style=flat-square)](https://hub.docker.com/r/stevengerritsen/protractor-headless)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/Steeff0/protractor-headless?style=flat-square)](https://github.com/Steeff0/protractor-headless/blob/(https://img.shields.io/github/v/tag/Steeff0/protractor-headless)/)
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/stevengerritsen/protractor-headless?style=flat-square)
 ![Docker Stars](https://img.shields.io/docker/stars/stevengerritsen/protractor-headless?style=flat-square)
